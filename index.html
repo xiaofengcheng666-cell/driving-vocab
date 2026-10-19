@@ -93,6 +93,7 @@ input.txt{font:inherit;font-size:1.15rem;width:100%;box-sizing:border-box;paddin
 .list > :first-child{border-top:0}
 .tip{border:1px dashed var(--line);border-radius:10px;padding:12px 14px;font-size:.88rem;color:var(--muted)}
 .tip b{color:var(--fg)}
+.sync{font-size:.8rem;color:var(--muted);margin:-4px 0 10px}
 .mic{display:inline-block;border:1px solid var(--muted);border-radius:5px;padding:0 5px;font-size:.8rem}
 </style>
 </head><body>
@@ -215,10 +216,10 @@ const SPK='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 4V5L7
 const TIPS={
  say:'<b>听读练法</b>：① 看中文，先大声说出英文，再拼一遍（可跳过）② 听单词、短语，正常速和慢速各跟读三遍 ③ 按住「🎤 读单词」或「🎤 读短语」开口读，松开后看手机听懂了没有 ④ 点「听我的录音」和标准音对比。第一次使用时，Safari 会问能否使用麦克风，选「允许」。',
  spell:'<b>拼写练习</b>（只考拼写）：听读音、看中文，把英文打出来。大小写不算错，连字符和撇号要打对。打错的字母会标红，答对标记「拼写过关」。',
- list:'<b>浏览</b>：左边喇叭听单词，右边喇叭听短语。标签显示这个词的读音和拼写是否过关。进度只保存在当前这台设备的浏览器里。'};
+ list:'<b>浏览</b>：左边喇叭听单词，右边喇叭听短语。标签显示这个词的读音和拼写是否过关。进度会自动同步到你的 Google Drive（表格「驾照词汇学习记录」），iPhone 和 iPad 进度互通。'};
 
 let st={};try{st=JSON.parse(localStorage.getItem("drv-st2")||"{}")}catch(e){}
-const save=()=>{try{localStorage.setItem("drv-st2",JSON.stringify(st))}catch(e){}};
+const save=()=>{try{localStorage.setItem("drv-st2",JSON.stringify(st))}catch(e){};syncNote()};
 const S=n=>st[n]||(st[n]={});
 let mode="say", g=0, idx=0, shown=false, tgt="w", lastRes="", spellMsg="";
 
@@ -468,7 +469,56 @@ $("mSpell").onclick=()=>{mode="spell";idx=0;render()};
 $("mList").onclick=()=>{mode="list";render()};
 $("grp").onchange=e=>{g=+e.target.value;idx=0;shown=false;lastRes="";render()};
 $("onlyAgain").onchange=()=>{idx=0;shown=false;lastRes="";render()};
+
+/* 同步到 Google Drive */
+const SYNC_URL="https://script.google.com/macros/s/AKfycbzIekTZ0svOTIcX9QeFEiTRC8BLsAH2eWwiVjluWs_DShgcB24XRGKYNdWMV7izu1iZ/exec";
+const DEV=/iPad/.test(navigator.userAgent)||(/Macintosh/.test(navigator.userAgent)&&navigator.maxTouchPoints>1)?"iPad":/iPhone/.test(navigator.userAgent)?"iPhone":/Mac/.test(navigator.userAgent)?"Mac":"其他设备";
+let syncKey="";try{syncKey=localStorage.getItem("drv-key")||""}catch(e){}
+{const m=location.hash.match(/k=([\w-]+)/);if(m){syncKey=m[1];try{localStorage.setItem("drv-key",syncKey)}catch(e){}
+  try{history.replaceState(null,"",location.pathname+location.search)}catch(e){}}}
+let syncQ=[];try{syncQ=JSON.parse(localStorage.getItem("drv-q")||"[]")}catch(e){}
+const known={};let syncBusy=false,syncAgain=false,syncTimer=0,syncMsg="";
+const saveQ=()=>{try{localStorage.setItem("drv-q",JSON.stringify(syncQ))}catch(e){}};
+const syncEl=document.createElement("div");syncEl.className="sync";syncEl.id="sync";$("stats").after(syncEl);
+function syncShow(t){syncMsg=t;syncEl.textContent=t}
+function queued(n,t){return syncQ.some(q=>q.n===n&&q.t===t)}
+function enqueueNew(){let added=false;
+  for(const k in st){const n=+k;for(const t of ["say","spell"]){
+    if(st[k][t]&&!(known[k]&&known[k][t])&&!queued(n,t)){const x=D[n-1]||{};
+      syncQ.push({n,t,w:x.w||"",zh:x.zh||"",at:Date.now(),dev:DEV});added=true}}}
+  if(added)saveQ();return added}
+function mergeRemote(r){let changed=false;
+  for(const k in r){for(const t of ["say","spell"]){if(r[k][t]){
+    (known[k]||(known[k]={}))[t]=true;
+    if(!(st[k]&&st[k][t])){S(+k)[t]=true;changed=true}}}}
+  if(changed){try{localStorage.setItem("drv-st2",JSON.stringify(st))}catch(e){}}
+  return changed}
+function syncNote(){if(!syncKey)return;enqueueNew();clearTimeout(syncTimer);syncTimer=setTimeout(syncRun,800)}
+async function syncRun(){
+  if(!syncKey){syncShow("☁️ 还没连接 Google Drive：用带同步码的链接打开一次即可。");return}
+  if(syncBusy){syncAgain=true;return}
+  syncBusy=true;syncShow("☁️ 正在同步…");
+  try{
+    const g=await (await fetch(SYNC_URL+"?key="+encodeURIComponent(syncKey),{cache:"no-store"})).json();
+    if(!g.ok)throw new Error(g.error==="key"?"同步码不对":"同步失败");
+    const changed=mergeRemote(g.st||{});
+    enqueueNew();
+    if(syncQ.length){const sent=syncQ.slice();
+      const p=await (await fetch(SYNC_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({key:syncKey,events:sent})})).json();
+      if(!p.ok)throw new Error("上传失败");
+      syncQ=syncQ.filter(q=>!sent.includes(q));saveQ();
+      mergeRemote(p.st||{})}
+    const d=new Date();syncShow("☁️ 已同步到 Google Drive · "+d.getHours()+":"+String(d.getMinutes()).padStart(2,"0"));
+    if(changed)render();
+  }catch(e){
+    syncShow("☁️ "+(navigator.onLine===false?"现在离线，联网后自动上传":(e.message||"同步失败")+"，稍后自动重试")+(syncQ.length?"（待上传 "+syncQ.length+" 条）":""));
+  }finally{syncBusy=false;if(syncAgain){syncAgain=false;syncTimer=setTimeout(syncRun,500)}}
+}
+const origRender=render;render=function(){origRender();if(syncMsg)syncEl.textContent=syncMsg};
+window.addEventListener("online",syncRun);
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")syncRun()});
 render();
+syncRun();
 </script>
 
 </body></html>
