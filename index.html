@@ -519,8 +519,7 @@ $("onlyAgain").onchange=()=>{idx=0;shown=false;lastRes="";render()};
 const SYNC_URL="https://script.google.com/macros/s/AKfycbzIekTZ0svOTIcX9QeFEiTRC8BLsAH2eWwiVjluWs_DShgcB24XRGKYNdWMV7izu1iZ/exec";
 const DEV=/iPad/.test(navigator.userAgent)||(/Macintosh/.test(navigator.userAgent)&&navigator.maxTouchPoints>1)?"iPad":/iPhone/.test(navigator.userAgent)?"iPhone":/Mac/.test(navigator.userAgent)?"Mac":"其他设备";
 let syncKey="";try{syncKey=localStorage.getItem("drv-key")||""}catch(e){}
-{const m=location.hash.match(/k=([\w-]+)/);if(m){syncKey=m[1];try{localStorage.setItem("drv-key",syncKey)}catch(e){}
-  try{history.replaceState(null,"",location.pathname+location.search)}catch(e){}}}
+{const m=location.hash.match(/k=([\w-]+)/);if(m){syncKey=m[1];try{localStorage.setItem("drv-key",syncKey)}catch(e){}}}
 let syncQ=[];try{syncQ=JSON.parse(localStorage.getItem("drv-q")||"[]")}catch(e){}
 syncQ.forEach(q=>{q.d=q.d||"drv"});
 const known={drv:{},txt:{}};let syncBusy=false,syncAgain=false,syncTimer=0;
