@@ -256,7 +256,7 @@ player.addEventListener("ended",()=>{if(playingBtn)playingBtn.classList.remove("
 function play(key,btn){
   if(!key)return;
   if(playingBtn)playingBtn.classList.remove("playing");
-  player.pause(); player.src="audio/"+deck+"/"+key+".mp3";
+  player.pause(); player.src="audio/"+deck+"/"+key+".mp3?v=2";
   playingBtn=btn||null; if(btn)btn.classList.add("playing");
   const p=player.play(); if(p&&p.catch)p.catch(()=>{if(btn)btn.classList.remove("playing")});
 }
