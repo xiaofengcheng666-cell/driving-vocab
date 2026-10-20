@@ -270,20 +270,26 @@ function startTalk(onAlts,onRec,onErr){
   const id=++talkId;stopAsked=false;talkCb=onAlts;let finals=[],done=false,tries=0,began=0,errs=[],evs="";const t0=Date.now();talkInfo="";
   releaseMic();try{rec&&rec.abort()}catch(e){}
   window.__playedBefore=window.__played;window.__played=0;
-  const guard=setTimeout(stopTalk,8000);
+  try{player.pause();player.removeAttribute("src");player.load()}catch(e){}
+  if(playingBtn){playingBtn.classList.remove("playing");playingBtn=null}
+  let guard=setTimeout(stopTalk,8000);
   const finish=()=>{if(done||id!==talkId)return;done=true;clearTimeout(guard);stopAsked=true;
     talkInfo=(errs.join(",")||"无错误")+" · 事件 "+(evs||"无")+" · 第"+talkId+"次"+(window.__playedBefore?" · 之前放过读音":" · 之前没放读音")+" · 试"+(tries+1)+"次 · "+(Date.now()-t0)+"ms"+(navigator.standalone||matchMedia("(display-mode: standalone)").matches?" · 网页App":" · 浏览器");
     const alts=!finals.length?null:finals.length===1?finals[0]:[finals.map(s=>s[0]).join(" ")];
     if(talkCb)talkCb(alts)};
   const fail=msg=>{if(done||id!==talkId)return;done=true;clearTimeout(guard);stopAsked=true;onErr(msg)};
   const listen=()=>{
-    try{const r=new SR();rec=r;r.lang="en-US";r.interimResults=false;r.maxAlternatives=5;r.continuous=false;began=Date.now();
-      r.onstart=()=>{evs+="o"};r.onaudiostart=()=>{evs+="a"};r.onsoundstart=()=>{evs+="s"};r.onspeechstart=()=>{evs+="p"};
-      r.onresult=e=>{if(id!==talkId)return;evs+="r";for(let i=e.resultIndex;i<e.results.length;i++)if(e.results[i].isFinal)finals.push(Array.from(e.results[i]).map(a=>a.transcript))};
-      r.onerror=e=>{if(id!==talkId)return;errs.push(e.error);
+    try{const r=new SR();rec=r;r.lang="en-US";r.interimResults=false;r.maxAlternatives=5;r.continuous=false;began=Date.now();let heard=false;
+      const live=()=>!r.__retired&&id===talkId&&!done;
+      r.onstart=()=>{evs+="o"};r.onaudiostart=()=>{evs+="a"};r.onsoundstart=()=>{evs+="s";heard=true};r.onspeechstart=()=>{evs+="p";heard=true};
+      setTimeout(()=>{if(!live()||heard||finals.length||stopAsked||tries>=1)return;
+        tries++;evs+="|";r.__retired=true;try{r.abort()}catch(e){}
+        clearTimeout(guard);guard=setTimeout(stopTalk,6000);setTimeout(listen,300)},2500);
+      r.onresult=e=>{if(!live())return;evs+="r";for(let i=e.resultIndex;i<e.results.length;i++)if(e.results[i].isFinal)finals.push(Array.from(e.results[i]).map(a=>a.transcript))};
+      r.onerror=e=>{if(!live())return;errs.push(e.error);
         if(e.error==="not-allowed"||e.error==="service-not-allowed")fail("麦克风或语音识别没有被允许。请点 Safari 地址栏左边的「大小」图标 → 网站设置 → 麦克风 → 允许，然后刷新。");
         else if(e.error==="audio-capture")fail("麦克风暂时被占用。请关掉其他正在录音或通话的 App，然后刷新页面再试。")};
-      r.onend=()=>{if(id!==talkId||done)return;
+      r.onend=()=>{if(!live())return;
         if(!finals.length&&!stopAsked&&tries<1&&Date.now()-began<1500){tries++;setTimeout(listen,150);return}
         finish()};
       r.start()}catch(e){errs.push(String(e&&e.name||e));finish()}};
