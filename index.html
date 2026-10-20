@@ -577,6 +577,7 @@ $("dDrv").onclick=()=>{if(deck!=="drv")setDeck("drv")};
 $("dTxt").onclick=()=>{if(deck!=="txt")setDeck("txt")};
 setDeck(deck);
 syncRun();
+if("serviceWorker" in navigator)window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").catch(()=>{})});
 </script>
 
 </body></html>
