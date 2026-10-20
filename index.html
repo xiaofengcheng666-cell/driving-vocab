@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8">
-<script>window.addEventListener("error",function(e){try{var d=document.createElement("pre");d.style.cssText="white-space:pre-wrap;background:#fff;color:#b00;padding:12px;margin:0;font:13px/1.4 monospace";d.textContent="页面出错，请截图发给 Claude：\n"+(e.message||"")+"\n"+(e.filename||"")+":"+(e.lineno||"");(document.body||document.documentElement).prepend(d)}catch(x){}});</script>
+<script>window.addEventListener("error",function(e){if(!e.filename||e.filename.indexOf(location.origin)!==0)return;try{var d=document.createElement("pre");d.style.cssText="white-space:pre-wrap;background:#fff;color:#b00;padding:12px;margin:0;font:13px/1.4 monospace";d.textContent="页面出错，请截图发给 Claude：\n"+(e.message||"")+"\n"+(e.filename||"")+":"+(e.lineno||"");(document.body||document.documentElement).prepend(d)}catch(x){}});</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="apple-mobile-web-app-title" content="Freya单词卡">
 <link rel="icon" type="image/svg+xml" href="icon-v2.svg">
