@@ -263,26 +263,44 @@ function play(key,btn){
 
 /* microphone: speech recognition + my own recording */
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-let rec=null,mr=null,myUrl=null,myFor=0,stopAsked=false,talkCb=null;
+let rec=null,mr=null,myUrl=null,myFor=0,stopAsked=false,talkCb=null,micStream=null,talkId=0;
+function getMic(){
+  if(micStream&&micStream.getAudioTracks().some(t=>t.readyState==="live"))return Promise.resolve(micStream);
+  if(!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia))return Promise.resolve(null);
+  return navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}}).then(s=>micStream=s)}
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden"&&micStream){micStream.getTracks().forEach(t=>t.stop());micStream=null}});
 function startTalk(onAlts,onRec,onErr){
-  stopAsked=false;talkCb=onAlts;let finals=[],done=false;
+  const id=++talkId;stopAsked=false;talkCb=onAlts;let finals=[],done=false,tries=0,began=0;
+  try{rec&&rec.abort()}catch(e){}
   const guard=setTimeout(stopTalk,12000);
-  const finish=()=>{if(done)return;done=true;clearTimeout(guard);stopAsked=true;if(mr&&mr.state!=="inactive")mr.stop();
+  const stopRecorder=()=>{if(mr&&mr.state!=="inactive")try{mr.stop()}catch(e){}};
+  const finish=()=>{if(done||id!==talkId)return;done=true;clearTimeout(guard);stopAsked=true;stopRecorder();
     const alts=!finals.length?null:finals.length===1?finals[0]:[finals.map(s=>s[0]).join(" ")];
     if(talkCb)talkCb(alts)};
-  if(SR){try{rec=new SR();rec.lang="en-US";rec.interimResults=false;rec.maxAlternatives=5;rec.continuous=false;
-    rec.onresult=e=>{for(let i=e.resultIndex;i<e.results.length;i++)if(e.results[i].isFinal)finals.push(Array.from(e.results[i]).map(a=>a.transcript))};
-    rec.onerror=e=>{if(e.error==="not-allowed"||e.error==="service-not-allowed"){done=true;clearTimeout(guard);stopAsked=true;if(mr&&mr.state!=="inactive")mr.stop();onErr("麦克风或语音识别没有被允许。请点 Safari 地址栏左边的「大小」图标 → 网站设置 → 麦克风 → 允许，然后刷新。")}};
-    rec.onend=finish;rec.start()}catch(e){finish()}}
-  if(navigator.mediaDevices&&window.MediaRecorder){
-    navigator.mediaDevices.getUserMedia({audio:true}).then(s=>{const chunks=[];
-      try{mr=new MediaRecorder(s)}catch(e){s.getTracks().forEach(k=>k.stop());return}
-      mr.ondataavailable=e=>{if(e.data&&e.data.size)chunks.push(e.data)};
-      mr.onstop=()=>{if(myUrl)URL.revokeObjectURL(myUrl);myUrl=URL.createObjectURL(new Blob(chunks,{type:mr.mimeType||"audio/mp4"}));s.getTracks().forEach(k=>k.stop());onRec()};
-      mr.start();if(stopAsked)mr.stop()}).catch(()=>{})}
+  const fail=msg=>{if(done||id!==talkId)return;done=true;clearTimeout(guard);stopAsked=true;stopRecorder();onErr(msg)};
+  const listen=()=>{
+    if(!SR){return}
+    try{const r=new SR();rec=r;r.lang="en-US";r.interimResults=false;r.maxAlternatives=5;r.continuous=false;began=Date.now();
+      r.onresult=e=>{if(id!==talkId)return;for(let i=e.resultIndex;i<e.results.length;i++)if(e.results[i].isFinal)finals.push(Array.from(e.results[i]).map(a=>a.transcript))};
+      r.onerror=e=>{if(id!==talkId)return;
+        if(e.error==="not-allowed"||e.error==="service-not-allowed")fail("麦克风或语音识别没有被允许。请点 Safari 地址栏左边的「大小」图标 → 网站设置 → 麦克风 → 允许，然后刷新。");
+        else if(e.error==="audio-capture")fail("麦克风暂时被占用。请关掉其他正在录音或通话的 App，然后刷新页面再试。")};
+      r.onend=()=>{if(id!==talkId||done)return;
+        if(!finals.length&&!stopAsked&&tries<1&&Date.now()-began<1500){tries++;setTimeout(listen,150);return}
+        finish()};
+      r.start()}catch(e){finish()}};
+  getMic().then(s=>{
+    if(id!==talkId||done)return;
+    if(s&&window.MediaRecorder){const chunks=[];
+      try{const m=new MediaRecorder(s);mr=m;
+        m.ondataavailable=e=>{if(e.data&&e.data.size)chunks.push(e.data)};
+        m.onstop=()=>{if(myUrl)URL.revokeObjectURL(myUrl);myUrl=URL.createObjectURL(new Blob(chunks,{type:m.mimeType||"audio/mp4"}));onRec()};
+        m.start()}catch(e){}}
+    if(SR)listen();else finish()
+  }).catch(()=>{if(SR)listen();else fail("打不开麦克风。请在 Safari 网站设置里允许麦克风，然后刷新。")})
 }
 function stopTalk(){stopAsked=true;
-  setTimeout(()=>{try{rec&&rec.stop()}catch(e){};if(mr&&mr.state!=="inactive")mr.stop()},350)}
+  setTimeout(()=>{try{rec&&rec.stop()}catch(e){};if(mr&&mr.state!=="inactive")try{mr.stop()}catch(e){}},350)}
 function playUrl(url,btn){if(playingBtn)playingBtn.classList.remove("playing");player.pause();player.src=url;playingBtn=btn;btn.classList.add("playing");
   const p=player.play();if(p&&p.catch)p.catch(()=>btn.classList.remove("playing"))}
 
