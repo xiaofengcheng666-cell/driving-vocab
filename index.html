@@ -255,6 +255,7 @@ const player=new Audio(); let playingBtn=null;
 player.addEventListener("ended",()=>{if(playingBtn)playingBtn.classList.remove("playing");playingBtn=null});
 function play(key,btn){
   if(!key)return;
+  window.__played=1;
   if(playingBtn)playingBtn.classList.remove("playing");
   player.pause(); player.src="audio/"+deck+"/"+key+".mp3?v=2";
   playingBtn=btn||null; if(btn)btn.classList.add("playing");
@@ -268,9 +269,10 @@ function releaseMic(){if(mr&&mr.state!=="inactive")try{mr.stop()}catch(e){};if(r
 function startTalk(onAlts,onRec,onErr){
   const id=++talkId;stopAsked=false;talkCb=onAlts;let finals=[],done=false,tries=0,began=0,errs=[],evs="";const t0=Date.now();talkInfo="";
   releaseMic();try{rec&&rec.abort()}catch(e){}
+  window.__playedBefore=window.__played;window.__played=0;
   const guard=setTimeout(stopTalk,8000);
   const finish=()=>{if(done||id!==talkId)return;done=true;clearTimeout(guard);stopAsked=true;
-    talkInfo=(errs.join(",")||"无错误")+" · 事件 "+(evs||"无")+" · 试"+(tries+1)+"次 · "+(Date.now()-t0)+"ms"+(navigator.standalone||matchMedia("(display-mode: standalone)").matches?" · 网页App":" · 浏览器");
+    talkInfo=(errs.join(",")||"无错误")+" · 事件 "+(evs||"无")+" · 第"+talkId+"次"+(window.__playedBefore?" · 之前放过读音":" · 之前没放读音")+" · 试"+(tries+1)+"次 · "+(Date.now()-t0)+"ms"+(navigator.standalone||matchMedia("(display-mode: standalone)").matches?" · 网页App":" · 浏览器");
     const alts=!finals.length?null:finals.length===1?finals[0]:[finals.map(s=>s[0]).join(" ")];
     if(talkCb)talkCb(alts)};
   const fail=msg=>{if(done||id!==talkId)return;done=true;clearTimeout(guard);stopAsked=true;onErr(msg)};
