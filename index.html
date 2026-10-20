@@ -235,7 +235,7 @@ let deck="drv";try{if(DECKS[localStorage.getItem("drv-deck")])deck=localStorage.
 let D=DECKS[deck].D, GROUPS=DECKS[deck].G;
 const SPK='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 4V5L7 9H3zm13.5 3a4.5 4.5 0 0 0-2.5-4v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/></svg>';
 const TIPS={
- say:'<b>听读练法</b>：① 看中文，先大声说出英文，再拼一遍（可跳过）② 听单词、短语，正常速和慢速各跟读三遍 ③ 点「🎤 读单词」或「🎤 读短语」开口读，读完停一下会自动结束（也可以再点一下结束），然后看手机听懂了没有 ④ 点「听我的录音」和标准音对比。第一次使用时，Safari 会问能否使用麦克风，选「允许」。',
+ say:'<b>听读练法</b>：① 看中文，先大声说出英文，再拼一遍（可跳过）② 听单词、短语，正常速和慢速各跟读三遍 ③ 点「🎤 读单词」或「🎤 读短语」开口读，读完停一下会自动结束（也可以再点一下结束），然后看手机听懂了没有 ④ 点「⏺ 录一遍对比」录下自己的读音（再点一下或 6 秒后结束），然后点「听我的录音」和标准音对比。第一次使用时，Safari 会问能否使用麦克风，选「允许」。',
  spell:'<b>拼写练习</b>（只考拼写）：听读音、看中文，把英文打出来。大小写不算错，连字符和撇号要打对。打错的字母会标红，答对标记「拼写过关」。',
  list:'<b>浏览</b>：左边喇叭听单词，右边喇叭听短语。标签显示这个词的读音和拼写是否过关。进度会自动同步到你的 Google Drive（文件夹「Freya的新单词」里的学习记录表），iPhone 和 iPad 进度互通。'};
 
@@ -261,25 +261,20 @@ function play(key,btn){
   const p=player.play(); if(p&&p.catch)p.catch(()=>{if(btn)btn.classList.remove("playing")});
 }
 
-/* microphone: speech recognition + my own recording */
+/* microphone: speech recognition, and separately my own recording */
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-let rec=null,mr=null,myUrl=null,myFor=0,stopAsked=false,talkCb=null,micStream=null,talkId=0,talkInfo="";
-function getMic(){
-  if(micStream&&micStream.getAudioTracks().some(t=>t.readyState==="live"))return Promise.resolve(micStream);
-  if(!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia))return Promise.resolve(null);
-  return navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}}).then(s=>micStream=s)}
-document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden"&&micStream){micStream.getTracks().forEach(t=>t.stop());micStream=null}});
+let rec=null,mr=null,myUrl=null,myFor=0,stopAsked=false,talkCb=null,talkId=0,talkInfo="",recStream=null,recTimer=0;
+function releaseMic(){if(mr&&mr.state!=="inactive")try{mr.stop()}catch(e){};if(recStream){recStream.getTracks().forEach(t=>t.stop());recStream=null}}
 function startTalk(onAlts,onRec,onErr){
   const id=++talkId;stopAsked=false;talkCb=onAlts;let finals=[],done=false,tries=0,began=0,errs=[];const t0=Date.now();talkInfo="";
-  try{rec&&rec.abort()}catch(e){}
-  const guard=setTimeout(stopTalk,12000);
-  const stopRecorder=()=>{if(mr&&mr.state!=="inactive")try{mr.stop()}catch(e){}};
-  const finish=()=>{if(done||id!==talkId)return;done=true;talkInfo=(errs.join(",")||"无错误")+" · 试"+(tries+1)+"次 · "+(Date.now()-t0)+"ms"+(micStream?"":" · 无麦克风流");clearTimeout(guard);stopAsked=true;stopRecorder();
+  releaseMic();try{rec&&rec.abort()}catch(e){}
+  const guard=setTimeout(stopTalk,8000);
+  const finish=()=>{if(done||id!==talkId)return;done=true;clearTimeout(guard);stopAsked=true;
+    talkInfo=(errs.join(",")||"无错误")+" · 试"+(tries+1)+"次 · "+(Date.now()-t0)+"ms";
     const alts=!finals.length?null:finals.length===1?finals[0]:[finals.map(s=>s[0]).join(" ")];
     if(talkCb)talkCb(alts)};
-  const fail=msg=>{if(done||id!==talkId)return;done=true;clearTimeout(guard);stopAsked=true;stopRecorder();onErr(msg)};
+  const fail=msg=>{if(done||id!==talkId)return;done=true;clearTimeout(guard);stopAsked=true;onErr(msg)};
   const listen=()=>{
-    if(!SR){return}
     try{const r=new SR();rec=r;r.lang="en-US";r.interimResults=false;r.maxAlternatives=5;r.continuous=false;began=Date.now();
       r.onresult=e=>{if(id!==talkId)return;for(let i=e.resultIndex;i<e.results.length;i++)if(e.results[i].isFinal)finals.push(Array.from(e.results[i]).map(a=>a.transcript))};
       r.onerror=e=>{if(id!==talkId)return;errs.push(e.error);
@@ -288,19 +283,25 @@ function startTalk(onAlts,onRec,onErr){
       r.onend=()=>{if(id!==talkId||done)return;
         if(!finals.length&&!stopAsked&&tries<1&&Date.now()-began<1500){tries++;setTimeout(listen,150);return}
         finish()};
-      r.start()}catch(e){finish()}};
-  getMic().then(s=>{
-    if(id!==talkId||done)return;
-    if(s&&window.MediaRecorder){const chunks=[];
-      try{const m=new MediaRecorder(s);mr=m;
-        m.ondataavailable=e=>{if(e.data&&e.data.size)chunks.push(e.data)};
-        m.onstop=()=>{if(myUrl)URL.revokeObjectURL(myUrl);myUrl=URL.createObjectURL(new Blob(chunks,{type:m.mimeType||"audio/mp4"}));onRec()};
-        m.start()}catch(e){}}
-    if(SR)listen();else finish()
-  }).catch(()=>{if(SR)listen();else fail("打不开麦克风。请在 Safari 网站设置里允许麦克风，然后刷新。")})
+      r.start()}catch(e){errs.push(String(e&&e.name||e));finish()}};
+  listen()
 }
-function stopTalk(){stopAsked=true;
-  setTimeout(()=>{try{rec&&rec.stop()}catch(e){};if(mr&&mr.state!=="inactive")try{mr.stop()}catch(e){}},350)}
+function stopTalk(){stopAsked=true;try{rec&&rec.stop()}catch(e){}}
+function recordMine(btn,onDone,onErr){
+  if(mr&&mr.state==="recording"){clearTimeout(recTimer);mr.stop();return}
+  if(!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia&&window.MediaRecorder)){onErr("这个浏览器不支持录音。");return}
+  try{rec&&rec.abort()}catch(e){}
+  const label=btn.textContent;
+  navigator.mediaDevices.getUserMedia({audio:true}).then(s=>{recStream=s;const chunks=[];
+    const m=new MediaRecorder(s);mr=m;
+    m.ondataavailable=e=>{if(e.data&&e.data.size)chunks.push(e.data)};
+    m.onstop=()=>{clearTimeout(recTimer);s.getTracks().forEach(t=>t.stop());if(recStream===s)recStream=null;
+      btn.classList.remove("rec");btn.textContent=label;
+      if(myUrl)URL.revokeObjectURL(myUrl);myUrl=URL.createObjectURL(new Blob(chunks,{type:m.mimeType||"audio/mp4"}));onDone()};
+    m.start();btn.classList.add("rec");btn.textContent="■ 录音中（点我结束）";
+    recTimer=setTimeout(()=>{if(m.state==="recording")m.stop()},6000)
+  }).catch(()=>onErr("打不开麦克风。请在 Safari 网站设置里允许麦克风，然后刷新。"))
+}
 function playUrl(url,btn){if(playingBtn)playingBtn.classList.remove("playing");player.pause();player.src=url;playingBtn=btn;btn.classList.add("playing");
   const p=player.play();if(p&&p.catch)p.catch(()=>btn.classList.remove("playing"))}
 
@@ -397,6 +398,7 @@ function renderSay(){
         <h3>读给手机听</h3>
         <div class="btns"><button class="btn talk" id="tW" data-l="🎤 读单词">🎤 读单词</button><button class="btn talk" id="tP" data-l="🎤 读短语">🎤 读短语</button></div>
         <p class="hint" id="sayHint">${SR?"点一下按钮开口读，读完停一下会自动结束。":"这个浏览器不支持语音识别：点按钮后用键盘上的 🎤 听写。"}</p>
+        <div class="btns"><button class="btn talk" id="recMe">⏺ 录一遍对比</button></div>
         <div class="btns"><button class="btn" id="mine"${myUrl&&myFor===x.n?"":" hidden"}>${SPK}听我的录音</button><button class="btn" id="cmpW"${myUrl&&myFor===x.n?"":" hidden"}>${SPK}再听标准音</button></div>
         <input class="txt" id="said" type="text" autocomplete="off" placeholder="识别出的文字会出现在这里"${SR?" hidden":""}>
         <div class="res" id="res" aria-live="polite">${lastRes}</div>
@@ -440,6 +442,7 @@ function renderSay(){
   if(SR){bindTalk($("tW"),"w");bindTalk($("tP"),"p")}
   else{$("tW").onclick=()=>pick("w");$("tP").onclick=()=>pick("p")}
   $("mine").onclick=e=>{if(myUrl)playUrl(myUrl,e.currentTarget)};
+  $("recMe").onclick=e=>{player.pause();recordMine(e.currentTarget,showMine,msg=>{$("res").innerHTML=`<span class="verdict bad">${msg}</span>`})};
   $("cmpW").onclick=e=>play((tgt==="w"?"w":"p")+x.n,e.currentTarget);
   const run=(alts)=>{alts=(alts||[inp.value]).map(s=>String(s).trim()).filter(Boolean);
     if(!alts.length){$("res").innerHTML=SR?'<span class="hint">没听清，离手机近一点，点按钮再读一次。</span><span class="hint" style="display:block;font-size:.75rem;opacity:.7">诊断：'+esc(talkInfo)+'</span>':"";return}
