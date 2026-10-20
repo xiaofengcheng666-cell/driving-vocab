@@ -266,17 +266,18 @@ const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
 let rec=null,mr=null,myUrl=null,myFor=0,stopAsked=false,talkCb=null,talkId=0,talkInfo="",recStream=null,recTimer=0;
 function releaseMic(){if(mr&&mr.state!=="inactive")try{mr.stop()}catch(e){};if(recStream){recStream.getTracks().forEach(t=>t.stop());recStream=null}}
 function startTalk(onAlts,onRec,onErr){
-  const id=++talkId;stopAsked=false;talkCb=onAlts;let finals=[],done=false,tries=0,began=0,errs=[];const t0=Date.now();talkInfo="";
+  const id=++talkId;stopAsked=false;talkCb=onAlts;let finals=[],done=false,tries=0,began=0,errs=[],evs="";const t0=Date.now();talkInfo="";
   releaseMic();try{rec&&rec.abort()}catch(e){}
   const guard=setTimeout(stopTalk,8000);
   const finish=()=>{if(done||id!==talkId)return;done=true;clearTimeout(guard);stopAsked=true;
-    talkInfo=(errs.join(",")||"无错误")+" · 试"+(tries+1)+"次 · "+(Date.now()-t0)+"ms";
+    talkInfo=(errs.join(",")||"无错误")+" · 事件 "+(evs||"无")+" · 试"+(tries+1)+"次 · "+(Date.now()-t0)+"ms"+(navigator.standalone||matchMedia("(display-mode: standalone)").matches?" · 网页App":" · 浏览器");
     const alts=!finals.length?null:finals.length===1?finals[0]:[finals.map(s=>s[0]).join(" ")];
     if(talkCb)talkCb(alts)};
   const fail=msg=>{if(done||id!==talkId)return;done=true;clearTimeout(guard);stopAsked=true;onErr(msg)};
   const listen=()=>{
     try{const r=new SR();rec=r;r.lang="en-US";r.interimResults=false;r.maxAlternatives=5;r.continuous=false;began=Date.now();
-      r.onresult=e=>{if(id!==talkId)return;for(let i=e.resultIndex;i<e.results.length;i++)if(e.results[i].isFinal)finals.push(Array.from(e.results[i]).map(a=>a.transcript))};
+      r.onstart=()=>{evs+="o"};r.onaudiostart=()=>{evs+="a"};r.onsoundstart=()=>{evs+="s"};r.onspeechstart=()=>{evs+="p"};
+      r.onresult=e=>{if(id!==talkId)return;evs+="r";for(let i=e.resultIndex;i<e.results.length;i++)if(e.results[i].isFinal)finals.push(Array.from(e.results[i]).map(a=>a.transcript))};
       r.onerror=e=>{if(id!==talkId)return;errs.push(e.error);
         if(e.error==="not-allowed"||e.error==="service-not-allowed")fail("麦克风或语音识别没有被允许。请点 Safari 地址栏左边的「大小」图标 → 网站设置 → 麦克风 → 允许，然后刷新。");
         else if(e.error==="audio-capture")fail("麦克风暂时被占用。请关掉其他正在录音或通话的 App，然后刷新页面再试。")};
@@ -445,7 +446,8 @@ function renderSay(){
   $("recMe").onclick=e=>{player.pause();recordMine(e.currentTarget,showMine,msg=>{$("res").innerHTML=`<span class="verdict bad">${msg}</span>`})};
   $("cmpW").onclick=e=>play((tgt==="w"?"w":"p")+x.n,e.currentTarget);
   const run=(alts)=>{alts=(alts||[inp.value]).map(s=>String(s).trim()).filter(Boolean);
-    if(!alts.length){$("res").innerHTML=SR?'<span class="hint">没听清，离手机近一点，点按钮再读一次。</span><span class="hint" style="display:block;font-size:.75rem;opacity:.7">诊断：'+esc(talkInfo)+'</span>':"";return}
+    if(!alts.length){$("res").innerHTML=SR?'<span class="hint">没听清，离手机近一点，点按钮再读一次。</span><span class="hint" style="display:block;font-size:.75rem;opacity:.7">诊断：'+esc(talkInfo)+'</span>':"";
+      if(SR){inp.hidden=false;inp.value="";inp.placeholder="改用键盘听写：点这里，再点键盘上的 🎤（键盘先切到英文）"}return}
     const target=tgt==="w"?x.w:x.ph; let r=null,v="";
     for(const a of alts){const q=checkSpeech(a,target);if(!r||q.score>r.score){r=q;v=a}}
     const marks=r.marks.map(([w,ok])=>`<span class="${ok?"ok":"miss"}">${esc(w)}</span>`).join(" ");
