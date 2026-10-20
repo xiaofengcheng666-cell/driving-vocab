@@ -266,7 +266,9 @@ function play(key,btn){
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
 let rec=null,mr=null,myUrl=null,myFor=0,stopAsked=false,talkCb=null,talkId=0,talkInfo="",recStream=null,recTimer=0;
 function releaseMic(){if(mr&&mr.state!=="inactive")try{mr.stop()}catch(e){};if(recStream){recStream.getTracks().forEach(t=>t.stop());recStream=null}}
+function pinSession(){try{if(navigator.audioSession&&navigator.audioSession.type!=="play-and-record")navigator.audioSession.type="play-and-record"}catch(e){}}
 function startTalk(onAlts,onRec,onErr){
+  pinSession();
   const id=++talkId;stopAsked=false;talkCb=onAlts;let finals=[],done=false,tries=0,began=0,errs=[],evs="";const t0=Date.now();talkInfo="";
   releaseMic();try{rec&&rec.abort()}catch(e){}
   window.__playedBefore=window.__played;window.__played=0;
@@ -274,7 +276,7 @@ function startTalk(onAlts,onRec,onErr){
   if(playingBtn){playingBtn.classList.remove("playing");playingBtn=null}
   let guard=setTimeout(stopTalk,8000);
   const finish=()=>{if(done||id!==talkId)return;done=true;clearTimeout(guard);stopAsked=true;
-    talkInfo=(errs.join(",")||"无错误")+" · 事件 "+(evs||"无")+" · 第"+talkId+"次"+(window.__playedBefore?" · 之前放过读音":" · 之前没放读音")+" · 试"+(tries+1)+"次 · "+(Date.now()-t0)+"ms"+(navigator.standalone||matchMedia("(display-mode: standalone)").matches?" · 网页App":" · 浏览器");
+    talkInfo=(errs.join(",")||"无错误")+" · 事件 "+(evs||"无")+" · 第"+talkId+"次"+(window.__playedBefore?" · 之前放过读音":" · 之前没放读音")+" · 试"+(tries+1)+"次 · "+(Date.now()-t0)+"ms"+(navigator.standalone||matchMedia("(display-mode: standalone)").matches?" · 网页App":" · 浏览器")+(navigator.audioSession?" · 会话 "+navigator.audioSession.type:" · 无会话API");
     const alts=!finals.length?null:finals.length===1?finals[0]:[finals.map(s=>s[0]).join(" ")];
     if(talkCb)talkCb(alts)};
   const fail=msg=>{if(done||id!==talkId)return;done=true;clearTimeout(guard);stopAsked=true;onErr(msg)};
@@ -297,6 +299,7 @@ function startTalk(onAlts,onRec,onErr){
 }
 function stopTalk(){stopAsked=true;try{rec&&rec.stop()}catch(e){}}
 function recordMine(btn,onDone,onErr){
+  pinSession();
   if(mr&&mr.state==="recording"){clearTimeout(recTimer);mr.stop();return}
   if(!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia&&window.MediaRecorder)){onErr("这个浏览器不支持录音。");return}
   try{rec&&rec.abort()}catch(e){}
@@ -455,7 +458,7 @@ function renderSay(){
   $("cmpW").onclick=e=>play((tgt==="w"?"w":"p")+x.n,e.currentTarget);
   const run=(alts)=>{alts=(alts||[inp.value]).map(s=>String(s).trim()).filter(Boolean);
     if(!alts.length){$("res").innerHTML=SR?'<span class="hint">没听清，离手机近一点，点按钮再读一次。</span><span class="hint" style="display:block;font-size:.75rem;opacity:.7">诊断：'+esc(talkInfo)+'</span>':"";
-      if(SR){inp.hidden=false;inp.value="";inp.placeholder="改用键盘听写：点这里，再点键盘上的 🎤（键盘先切到英文）"}return}
+      if(SR){inp.hidden=false;inp.value="";inp.placeholder="改用键盘听写：点这里，再点键盘上的 🎤（键盘先切到英文）";$("res").insertAdjacentHTML("beforeend",'<div class="btns" style="margin-top:8px"><button class="btn" id="fixSR" type="button">🔄 刷新恢复识别（停在这个词）</button></div>');$("fixSR").onclick=()=>{try{sessionStorage.setItem("drv-resume",JSON.stringify({deck,mode,g,idx,shown:true,only:$("onlyAgain").checked}))}catch(e){};location.reload()}}return}
     const target=tgt==="w"?x.w:x.ph; let r=null,v="";
     for(const a of alts){const q=checkSpeech(a,target);if(!r||q.score>r.score){r=q;v=a}}
     const marks=r.marks.map(([w,ok])=>`<span class="${ok?"ok":"miss"}">${esc(w)}</span>`).join(" ");
@@ -589,6 +592,9 @@ function setDeck(k){
 $("dDrv").onclick=()=>{if(deck!=="drv")setDeck("drv")};
 $("dTxt").onclick=()=>{if(deck!=="txt")setDeck("txt")};
 setDeck(deck);
+{let r=null;try{r=JSON.parse(sessionStorage.getItem("drv-resume")||"null");sessionStorage.removeItem("drv-resume")}catch(e){}
+ if(r&&DECKS[r.deck]){if(r.deck!==deck)setDeck(r.deck);mode=r.mode||"say";g=+r.g||0;$("grp").value=String(g);$("onlyAgain").checked=!!r.only;idx=+r.idx||0;shown=!!r.shown;render();
+  setTimeout(()=>{const res=$("res");if(res)res.innerHTML='<span class="hint">已刷新。现在点「🎤 读单词」或「🎤 读短语」再读一次。</span>'},0)}}
 syncRun();
 if("serviceWorker" in navigator)window.addEventListener("load",()=>{navigator.serviceWorker.register("sw.js").catch(()=>{})});
 </script>
