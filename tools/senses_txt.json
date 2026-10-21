@@ -1,116 +1,1106 @@
 {
-"txt-1": [["n.", "主题；题目", "the main subject or idea of a talk, book, or event", "The theme of this unit is animal behavior.", "这一单元的主题是动物行为。", "本课"],
-          ["n.", "（派对等的）主题风格", "a particular style used for a party or design", "a birthday party with a jungle theme", "丛林主题的生日派对", "常用"]],
-"txt-2": [["n.", "灵长类动物", "animals such as monkeys, apes, and humans", "Chimpanzees and gorillas are primates.", "黑猩猩和大猩猩都是灵长类动物。", "本课"]],
-"txt-3": [["n.", "猿", "large animals like monkeys but without tails, such as gorillas and chimpanzees", "Apes are very intelligent animals.", "猿是非常聪明的动物。", "本课"],
-          ["v.", "ape：模仿", "to copy someone's behavior, often badly", "Kids often ape their parents.", "孩子常常模仿父母。", ""]],
-"txt-4": [["n.", "亲属；近亲（物种）", "a member of your family, or a closely related animal or plant", "The chimpanzee is our nearest living relative.", "黑猩猩是我们现存最近的亲缘物种。", "本课"],
-          ["adj.", "相对的；比较而言的", "true only when compared with something else", "They live in relative comfort.", "他们生活得相对舒适。", "常用"]],
-"txt-5": [["n.", "黑猩猩", "an African ape that is closely related to humans", "The chimpanzee used a stick to get food.", "那只黑猩猩用树枝取食物。", "本课"]],
-"txt-6": [["n.", "科学家", "a person who studies or works in science", "Scientists study how animals communicate.", "科学家研究动物如何交流。", "本课"]],
-"txt-7": [["n.", "百分之……", "one part in every hundred", "Humans and chimps share about 96 percent of their DNA.", "人类和黑猩猩约有 96% 的 DNA 相同。", "本课"]],
-"txt-8": [["v.", "guard：守卫；看守", "to protect a place or person from danger", "Dogs have guarded homes for thousands of years.", "狗看家已有几千年了。", "本课"],
-          ["n.", "guard：保安；警卫", "a person whose job is to protect a place or people", "The security guard checked my bag.", "保安检查了我的包。", "常用"]],
-"txt-9": [["n.", "残疾；残障", "a physical or mental condition that limits what a person can do", "Some dogs help people with disabilities.", "有些狗帮助残障人士。", "本课"]],
-"txt-10": [["adj.", "特定的；特别的", "used to talk about one specific person or thing", "Some owners prefer particular types of dogs.", "有些主人偏爱特定种类的狗。", "本课"],
-           ["adj.", "挑剔的", "very careful about what you choose", "She's very particular about food.", "她对食物很挑剔。", "常用"],
-           ["phrase", "in particular：尤其", "especially", "I love animals, dogs in particular.", "我喜欢动物，尤其是狗。", "常用"]],
-"txt-11": [["v.", "对待", "to behave toward someone or something in a certain way", "He teaches people how to treat their dogs better.", "他教人们如何更好地对待自己的狗。", "本课"],
-           ["v.", "治疗", "to give medical care to a person or animal", "The vet treated the dog's leg.", "兽医治疗了狗的腿。", "常用"],
-           ["n.", "款待；小零食", "something special that gives pleasure, like a snack", "Give your dog a treat when it obeys.", "狗听话时给它一点零食。", "常用"]],
-"txt-12": [["n.", "洞见；深刻了解", "a clear, deep understanding of something", "His book gives insights into the minds of dogs.", "他的书让人深入了解狗的心理。", "本课"]],
-"txt-13": [["adj.", "某些；某个", "used to mean particular people or things without naming them", "Certain kinds of dogs need more exercise.", "某些种类的狗需要更多运动。", "本课"],
-           ["adj.", "确定的；肯定的", "completely sure", "I'm certain I locked the door.", "我确定我锁了门。", "常用"]],
-"txt-14": [["n.", "力量；力气", "physical power", "Big dogs have a lot of strength.", "大狗力气很大。", "本课"],
-           ["n.", "优点；长处", "a good quality or ability", "Patience is one of her strengths.", "耐心是她的长处之一。", "常用"]],
-"txt-15": [["adj.", "装饰性的", "pretty and used to make something look attractive", "Some people see small dogs as decorative.", "有些人把小狗当作装饰品。", "本课"]],
-"txt-16": [["n.", "镜子", "a piece of glass that shows your reflection", "She looked at herself in the mirror.", "她照了照镜子。", "常用"],
-           ["n.", "（比喻）反映；写照", "something that shows what another thing is like", "A dog is a mirror of its owner.", "狗是主人的一面镜子。", "本课"],
-           ["v.", "反映；映照", "to show or be very similar to something", "Her words mirror my own feelings.", "她的话反映了我自己的感受。", ""]],
-"txt-17": [["n.", "方法；处理方式", "a way of dealing with a problem or doing something", "His approach to training dogs is very calm.", "他训练狗的方法非常平和。", "本课"],
-           ["v.", "靠近；接近", "to come near to someone or something", "Approach the dog slowly.", "慢慢靠近那只狗。", "常用"]],
-"txt-18": [["n.", "牵引绳；狗绳", "a rope or strap used to hold and control a dog", "Keep your dog on a leash in the park.", "在公园里要给狗拴绳。", "本课"]],
-"txt-19": [["n.", "大男子气概", "strong, often aggressive pride in being a man", "He talked about machismo and how it affects dog owners.", "他谈到大男子气概以及它对狗主人的影响。", "本课"]],
-"txt-20": [["v.", "刺；捅", "to push a knife or sharp object into someone", "The man was stabbed in the arm.", "那个男子手臂被刺伤。", "常用"],
-           ["idiom", "stab someone in the back：背叛", "to betray someone who trusts you", "A dog will never stab you in the back.", "狗永远不会在背后捅你一刀。", "本课"]],
-"txt-21": [["v.", "说谎", "to say something that you know is not true", "Dogs never lie to you.", "狗从不对你说谎。", "本课"],
-           ["v.", "躺；平放", "to be in a flat position on a surface", "The dog lay on the floor.", "狗躺在地板上。", "常用"],
-           ["n.", "谎言", "something you say that you know is false", "That's a lie!", "那是谎话！", "常用"]],
-"txt-22": [["adj.", "本能的", "based on natural behavior, not on learning or thinking", "Dogs are instinctual animals.", "狗是靠本能行事的动物。", "本课"]],
-"txt-23": [["n.", "客户；委托人", "a person who pays for professional services", "Some of his clients are famous actors.", "他的一些客户是名演员。", "本课"]],
-"txt-24": [["adj.", "坚定的；严格的", "showing strong control and not changing your mind", "Be firm but kind with your dog.", "对狗要坚定而温和。", "本课"],
-           ["adj.", "结实的；硬的", "not soft; solid", "a firm mattress", "硬床垫", "常用"],
-           ["n.", "公司；事务所", "a business or company", "She works for a law firm.", "她在一家律师事务所工作。", "常用"]],
-"txt-25": [["n.", "自信", "the feeling that you can do things well", "Dogs respond to an owner's confidence.", "狗会对主人的自信作出反应。", "本课"],
-           ["n.", "信任；信心", "trust in someone or something", "I have confidence in my team.", "我对我的团队有信心。", "常用"]],
-"txt-26": [["v.", "欺骗；蒙骗", "to make someone believe something that is not true", "Animals don't try to deceive us.", "动物不会试图欺骗我们。", "本课"]],
-"txt-27": [["adv.", "身体上", "in a way related to the body", "Never hurt a dog physically.", "绝不要在身体上伤害狗。", "本课"],
-           ["adv.", "实际上；物理上", "in a way that follows the laws of nature", "It's physically impossible to be in two places at once.", "同时出现在两个地方在物理上是不可能的。", ""]],
-"txt-28": [["n.", "代词", "a word such as he, she, it, or they used instead of a noun", "What does each underlined pronoun refer to?", "每个画线的代词指代什么？", "本课"]],
-"txt-29": [["n.", "推断；推论", "a conclusion you reach from information you have", "Make an inference about the writer's opinion.", "推断作者的观点。", "本课"],
-           ["v.", "infer：推断", "to form an opinion from information you have", "What can you infer from the text?", "你能从文章中推断出什么？", "常用"]],
-"txt-30": [["adv.", "直接地；明确地", "without anything or anyone in between; clearly", "The writer does not say it directly.", "作者没有直接说出来。", "本课"],
-           ["adv.", "马上；立即", "immediately", "Come home directly after school.", "放学后直接回家。", ""]],
-"txt-31": [["v.", "recognize：识别；认出", "to know someone or something because you have seen it before", "Practice recognizing noun clauses.", "练习识别名词性从句。", "本课"],
-           ["v.", "recognize：承认；认可", "to accept that something is true or important", "We recognize her hard work.", "我们认可她的努力。", "常用"]],
-"txt-32": [["n.", "从句", "a group of words with a subject and a verb that is part of a sentence", "A noun clause can be the object of a verb.", "名词性从句可以作动词的宾语。", "本课"],
-           ["n.", "（合同的）条款", "a section of a legal document", "Read every clause in the contract.", "仔细读合同的每一项条款。", "常用"]],
-"txt-33": [["adj.", "从属的（语法）", "(grammar) introducing a clause that depends on the main clause", "'Because' is a subordinating conjunction.", "because 是从属连词。", "本课"]],
-"txt-34": [["n.", "连词", "a word such as and, but, or because that joins words or clauses", "Use a conjunction to join the two sentences.", "用一个连词把两个句子连起来。", "本课"],
-           ["phrase", "in conjunction with：与……一起", "together with", "The study was done in conjunction with the university.", "这项研究是与大学合作完成的。", ""]],
-"txt-35": [["n.", "公平；公正", "the quality of treating people equally and reasonably", "Monkeys seem to care about fairness.", "猴子似乎在意公平。", "本课"]],
-"txt-36": [["n.", "葡萄", "a small round green or purple fruit", "The monkey wanted a grape instead of cucumber.", "猴子想要葡萄而不是黄瓜。", "本课"]],
-"txt-37": [["n.", "卷尾猴", "a small South American monkey", "One capuchin got a grape, and the other got cucumber.", "一只卷尾猴得到葡萄，另一只得到黄瓜。", "本课"]],
-"txt-38": [["v.", "表明；显示", "to show that something is probably true", "This research suggests that animals feel emotions.", "这项研究表明动物有情感。", "本课"],
-           ["v.", "建议；提议", "to give an idea for others to consider", "I suggest we leave early.", "我建议我们早点出发。", "常用"]],
-"txt-39": [["n.", "化学物质", "a substance made by or used in chemistry", "Oxytocin is a chemical in the brain.", "催产素是大脑中的一种化学物质。", "本课"],
-           ["adj.", "化学的", "relating to chemistry", "a chemical reaction", "化学反应", "常用"]],
-"txt-40": [["n.", "哺乳动物", "animals that feed their babies with milk", "Dogs, whales, and humans are mammals.", "狗、鲸和人类都是哺乳动物。", "本课"]],
-"txt-41": [["adj.", "相关的；牵涉其中的", "connected with or part of something", "Oxytocin is involved in feelings of love.", "催产素与爱的感受有关。", "本课"],
-           ["adj.", "参与的", "taking part in an activity", "Many students got involved in the project.", "很多学生参与了这个项目。", "常用"]],
-"txt-42": [["prep.", "对于；针对（感情）", "in relation to someone or something", "her feelings toward her babies", "她对孩子的感情", "本课"],
-           ["prep.", "朝；向", "in the direction of", "The dog ran toward me.", "狗朝我跑来。", "常用"]],
-"txt-43": [["n.", "催产素", "a hormone linked to love, trust, and bonding", "Oxytocin helps mothers bond with their babies.", "催产素帮助母亲和婴儿建立亲密关系。", "本课"]],
-"txt-44": [["n.", "数量；量", "a quantity of something", "Some people produce larger amounts of oxytocin.", "有些人分泌的催产素更多。", "本课"],
-           ["v.", "amount to：总计；等于", "to add up to; to be the same as", "The bill amounted to $50.", "账单总计 50 美元。", ""]],
-"txt-45": [["n.", "实验", "a scientific test to find out something", "In the experiment, the monkeys were given food.", "在实验中，猴子得到了食物。", "本课"],
-           ["v.", "尝试；做实验", "to try new ideas or methods", "She likes to experiment with new recipes.", "她喜欢尝试新菜谱。", "常用"]],
-"txt-46": [["v.", "breathe：呼吸；吸入", "to take air into your body and let it out", "The people breathed in the hormone.", "受试者吸入了这种激素。", "本课"]],
-"txt-47": [["v.", "care：在意；关心", "to feel that something is important", "The monkeys cared about fairness.", "猴子在意公平。", "本课"],
-           ["phr. v.", "care for：照顾", "to look after someone", "She cared for her sick mother.", "她照顾生病的母亲。", "常用"]],
-"txt-48": [["n.", "对待；待遇", "the way you behave toward someone", "The monkeys expected fair treatment.", "猴子期待公平的待遇。", "本课"],
-           ["n.", "治疗", "medical care for an illness or injury", "He is receiving treatment for back pain.", "他在接受背痛治疗。", "常用"]],
-"txt-49": [["adj.", "意识到的；关注到的", "knowing or noticing that something exists", "People became more aware of others' feelings.", "人们更能察觉别人的感受。", "本课"]],
-"txt-50": [["n.", "宠物", "an animal kept at home for company", "A dog can be a good pet.", "狗可以是很好的宠物。", "本课"],
-           ["v.", "抚摸", "to touch an animal gently with your hand", "Can I pet your dog?", "我可以摸摸你的狗吗？", "常用"]],
-"txt-51": [["n.", "训练员；驯兽师", "a person who teaches animals or people skills", "He is a famous dog trainer.", "他是一位著名的驯狗师。", "本课"],
-           ["n.", "运动鞋（trainers，英式）", "(British) sports shoes", "Wear your trainers to the gym.", "去健身房穿运动鞋。", ""]],
-"txt-52": [["n.", "职业（需专门训练的）", "a type of job that needs special training or education", "Teaching is a rewarding profession.", "教书是一份有意义的职业。", "本课"]],
-"txt-53": [["phr. v.", "解决；想出办法", "to find a solution to a problem", "They worked out the issues with their dog.", "他们解决了和狗之间的问题。", "本课"],
-           ["phr. v.", "健身；锻炼", "to exercise to improve your fitness", "I work out three times a week.", "我每周锻炼三次。", "常用"]],
-"txt-54": [["v.", "重视；欣赏", "to understand how good or important someone or something is", "Dogs appreciate a calm owner.", "狗喜欢平和的主人。", "本课"],
-           ["v.", "感激", "to be thankful for something", "I really appreciate your help.", "非常感谢你的帮助。", "常用"]],
-"txt-55": [["n.", "伙伴；同伴", "a person or animal you spend time with", "Dogs are good companions.", "狗是很好的伙伴。", "本课"]],
-"txt-56": [["adj.", "困惑的", "not able to understand something clearly", "Many owners are confused by their dogs' behavior.", "很多主人对狗的行为感到困惑。", "本课"],
-           ["v.", "confuse：把……弄糊涂；混淆", "to make someone unable to understand; to mix up", "I always confuse the two words.", "我总是把这两个词搞混。", "常用"]],
-"txt-57": [["n.", "主人；所有者", "a person who owns something", "A good pet owner walks the dog every day.", "好的宠物主人每天遛狗。", "本课"]],
-"txt-58": [["adj.", "有权势的；有影响力的", "having a lot of control or influence over others", "Some of his clients are powerful people.", "他的一些客户是有权势的人。", "本课"],
-           ["adj.", "强大的；效果强的", "very strong or effective", "a powerful engine", "强劲的发动机", "常用"]],
-"txt-59": [["v.", "继续", "to keep doing something without stopping", "The scientists continued the test.", "科学家们继续进行测试。", "本课"]],
-"txt-60": [["v.", "合作；配合", "to work together with someone toward the same goal", "The monkeys cooperated with each other to get food.", "猴子们互相合作获取食物。", "本课"]],
-"txt-61": [["v.", "交换；调换", "to give something and receive something else in return", "The monkey exchanged a token for food.", "猴子用一枚代币换了食物。", "本课"],
-           ["n.", "交换；交流", "the act of giving and receiving things or ideas", "a student exchange program", "学生交换项目", "常用"]],
-"txt-62": [["v.", "期待；预期", "to think that something will happen", "The monkeys expected to receive fair treatment.", "猴子期待得到公平对待。", "本课"],
-           ["v.", "要求；指望（某人做）", "to think someone should do something", "My boss expects me to be on time.", "老板要求我准时。", "常用"]],
-"txt-63": [["adj.", "公平的", "treating people equally and in a reasonable way", "It's not fair to give one monkey a grape and the other cucumber.", "给一只猴子葡萄、另一只黄瓜不公平。", "本课"],
-           ["n.", "集市；博览会", "an event with rides, games, or products for sale", "We went to the county fair.", "我们去逛了县里的集市。", "常用"],
-           ["adj.", "（肤色）白皙的；（发色）浅色的", "light in color (skin or hair)", "She has fair hair.", "她有一头浅色头发。", ""]],
-"txt-64": [["n.", "反应；回应", "a reaction to something", "The monkey's response to the unfair reward was anger.", "猴子对不公平奖励的反应是生气。", "本课"],
-           ["n.", "回答；答复", "an answer to a question or letter", "I'm still waiting for a response to my email.", "我还在等邮件的回复。", "常用"]],
-"txt-65": [["n.", "关系；联系", "the way two or more people, animals, or things are connected", "Capuchins have close relationships with each other.", "卷尾猴彼此关系亲密。", "本课"],
-           ["n.", "恋爱关系", "a romantic connection between two people", "They have been in a relationship for two years.", "他们交往两年了。", "常用"]],
-"txt-66": [["n.", "奖励；回报", "something given for good work or behavior", "The monkey got a piece of cucumber as a reward.", "猴子得到一块黄瓜作为奖励。", "本课"],
-           ["v.", "奖励；酬谢", "to give something to someone for good work or behavior", "Reward your dog when it sits.", "狗坐下时要奖励它。", "常用"]],
-"txt-67": [["phrase", "参加；参与", "to join in an activity", "The monkeys took part in activities to collect food.", "猴子参与了收集食物的活动。", "本课"]],
-"txt-68": [["adj.", "愿意的；乐意的", "happy and ready to do something", "Are you willing to help?", "你愿意帮忙吗？", "本课"]]
+"txt-1": [
+[
+"n.",
+"主题；题目",
+"the main subject or idea of a talk, book, or event",
+"The theme of this unit is animal behavior.",
+"这一单元的主题是动物行为。",
+"本课"
+],
+[
+"n.",
+"（派对等的）主题风格",
+"a particular style used for a party or design",
+"a birthday party with a jungle theme",
+"丛林主题的生日派对",
+"常用"
+]
+],
+"txt-2": [
+[
+"n.",
+"灵长类动物",
+"animals such as monkeys, apes, and humans",
+"Chimpanzees and gorillas are primates.",
+"黑猩猩和大猩猩都是灵长类动物。",
+"本课"
+]
+],
+"txt-3": [
+[
+"n.",
+"猿",
+"large animals like monkeys but without tails, such as gorillas and chimpanzees",
+"Apes are very intelligent animals.",
+"猿是非常聪明的动物。",
+"本课"
+],
+[
+"v.",
+"ape：模仿",
+"to copy someone's behavior, often badly",
+"Kids often ape their parents.",
+"孩子常常模仿父母。",
+""
+]
+],
+"txt-4": [
+[
+"n.",
+"亲属；近亲（物种）",
+"a member of your family, or a closely related animal or plant",
+"The chimpanzee is our nearest living relative.",
+"黑猩猩是我们现存最近的亲缘物种。",
+"本课"
+],
+[
+"adj.",
+"相对的；比较而言的",
+"true only when compared with something else",
+"They live in relative comfort.",
+"他们生活得相对舒适。",
+"常用"
+]
+],
+"txt-5": [
+[
+"n.",
+"黑猩猩",
+"an African ape that is closely related to humans",
+"The chimpanzee used a stick to get food.",
+"那只黑猩猩用树枝取食物。",
+"本课"
+]
+],
+"txt-6": [
+[
+"n.",
+"科学家",
+"a person who studies or works in science",
+"Scientists study how animals communicate.",
+"科学家研究动物如何交流。",
+"本课"
+]
+],
+"txt-7": [
+[
+"n.",
+"百分之……",
+"one part in every hundred",
+"Humans and chimps share about 96 percent of their DNA.",
+"人类和黑猩猩约有 96% 的 DNA 相同。",
+"本课"
+]
+],
+"txt-8": [
+[
+"v.",
+"guard：守卫；看守",
+"to protect a place or person from danger",
+"Dogs have guarded homes for thousands of years.",
+"狗看家已有几千年了。",
+"本课"
+],
+[
+"n.",
+"guard：保安；警卫",
+"a person whose job is to protect a place or people",
+"The security guard checked my bag.",
+"保安检查了我的包。",
+"常用"
+]
+],
+"txt-9": [
+[
+"n.",
+"残疾；残障",
+"a physical or mental condition that limits what a person can do",
+"Some dogs help people with disabilities.",
+"有些狗帮助残障人士。",
+"本课"
+]
+],
+"txt-10": [
+[
+"adj.",
+"特定的；特别的",
+"used to talk about one specific person or thing",
+"Some owners prefer particular types of dogs.",
+"有些主人偏爱特定种类的狗。",
+"本课"
+],
+[
+"adj.",
+"挑剔的",
+"very careful about what you choose",
+"She's very particular about food.",
+"她对食物很挑剔。",
+"常用"
+],
+[
+"phrase",
+"in particular：尤其",
+"especially",
+"I love animals, dogs in particular.",
+"我喜欢动物，尤其是狗。",
+"常用"
+]
+],
+"txt-11": [
+[
+"v.",
+"对待",
+"to behave toward someone or something in a certain way",
+"He teaches people how to treat their dogs better.",
+"他教人们如何更好地对待自己的狗。",
+"本课"
+],
+[
+"v.",
+"治疗",
+"to give medical care to a person or animal",
+"The vet treated the dog's leg.",
+"兽医治疗了狗的腿。",
+"常用"
+],
+[
+"n.",
+"款待；小零食",
+"something special that gives pleasure, like a snack",
+"Give your dog a treat when it obeys.",
+"狗听话时给它一点零食。",
+"常用"
+]
+],
+"txt-12": [
+[
+"n.",
+"洞见；深刻了解",
+"a clear, deep understanding of something",
+"His book gives insights into the minds of dogs.",
+"他的书让人深入了解狗的心理。",
+"本课"
+]
+],
+"txt-13": [
+[
+"adj.",
+"某些；某个",
+"used to mean particular people or things without naming them",
+"Certain kinds of dogs need more exercise.",
+"某些种类的狗需要更多运动。",
+"本课"
+],
+[
+"adj.",
+"确定的；肯定的",
+"completely sure",
+"I'm certain I locked the door.",
+"我确定我锁了门。",
+"常用"
+]
+],
+"txt-14": [
+[
+"n.",
+"力量；力气",
+"physical power",
+"Big dogs have a lot of strength.",
+"大狗力气很大。",
+"本课"
+],
+[
+"n.",
+"优点；长处",
+"a good quality or ability",
+"Patience is one of her strengths.",
+"耐心是她的长处之一。",
+"常用"
+]
+],
+"txt-15": [
+[
+"adj.",
+"装饰性的",
+"pretty and used to make something look attractive",
+"Some people see small dogs as decorative.",
+"有些人把小狗当作装饰品。",
+"本课"
+]
+],
+"txt-16": [
+[
+"n.",
+"镜子",
+"a piece of glass that shows your reflection",
+"She looked at herself in the mirror.",
+"她照了照镜子。",
+"常用"
+],
+[
+"n.",
+"（比喻）反映；写照",
+"something that shows what another thing is like",
+"A dog is a mirror of its owner.",
+"狗是主人的一面镜子。",
+"本课"
+],
+[
+"v.",
+"反映；映照",
+"to show or be very similar to something",
+"Her words mirror my own feelings.",
+"她的话反映了我自己的感受。",
+""
+]
+],
+"txt-17": [
+[
+"n.",
+"方法；处理方式",
+"a way of dealing with a problem or doing something",
+"His approach to training dogs is very calm.",
+"他训练狗的方法非常平和。",
+"本课"
+],
+[
+"v.",
+"靠近；接近",
+"to come near to someone or something",
+"Approach the dog slowly.",
+"慢慢靠近那只狗。",
+"常用"
+]
+],
+"txt-18": [
+[
+"n.",
+"牵引绳；狗绳",
+"a rope or strap used to hold and control a dog",
+"Keep your dog on a leash in the park.",
+"在公园里要给狗拴绳。",
+"本课"
+]
+],
+"txt-19": [
+[
+"n.",
+"大男子气概",
+"strong, often aggressive pride in being a man",
+"He talked about machismo and how it affects dog owners.",
+"他谈到大男子气概以及它对狗主人的影响。",
+"本课"
+]
+],
+"txt-20": [
+[
+"v.",
+"刺；捅",
+"to push a knife or sharp object into someone",
+"The man was stabbed in the arm.",
+"那个男子手臂被刺伤。",
+"常用"
+],
+[
+"idiom",
+"stab someone in the back：背叛",
+"to betray someone who trusts you",
+"A dog will never stab you in the back.",
+"狗永远不会在背后捅你一刀。",
+"本课"
+]
+],
+"txt-21": [
+[
+"v.",
+"说谎",
+"to say something that you know is not true",
+"Dogs never lie to you.",
+"狗从不对你说谎。",
+"本课"
+],
+[
+"v.",
+"躺；平放",
+"to be in a flat position on a surface",
+"The dog lay on the floor.",
+"狗躺在地板上。",
+"常用"
+],
+[
+"n.",
+"谎言",
+"something you say that you know is false",
+"That's a lie!",
+"那是谎话！",
+"常用"
+]
+],
+"txt-22": [
+[
+"adj.",
+"本能的",
+"based on natural behavior, not on learning or thinking",
+"Dogs are instinctual animals.",
+"狗是靠本能行事的动物。",
+"本课"
+]
+],
+"txt-23": [
+[
+"n.",
+"客户；委托人",
+"a person who pays for professional services",
+"Some of his clients are famous actors.",
+"他的一些客户是名演员。",
+"本课"
+]
+],
+"txt-24": [
+[
+"adj.",
+"坚定的；严格的",
+"showing strong control and not changing your mind",
+"Be firm but kind with your dog.",
+"对狗要坚定而温和。",
+"本课"
+],
+[
+"adj.",
+"结实的；硬的",
+"not soft; solid",
+"a firm mattress",
+"硬床垫",
+"常用"
+],
+[
+"n.",
+"公司；事务所",
+"a business or company",
+"She works for a law firm.",
+"她在一家律师事务所工作。",
+"常用"
+]
+],
+"txt-25": [
+[
+"n.",
+"自信",
+"the feeling that you can do things well",
+"Dogs respond to an owner's confidence.",
+"狗会对主人的自信作出反应。",
+"本课"
+],
+[
+"n.",
+"信任；信心",
+"trust in someone or something",
+"I have confidence in my team.",
+"我对我的团队有信心。",
+"常用"
+]
+],
+"txt-26": [
+[
+"v.",
+"欺骗；蒙骗",
+"to make someone believe something that is not true",
+"Animals don't try to deceive us.",
+"动物不会试图欺骗我们。",
+"本课"
+]
+],
+"txt-27": [
+[
+"adv.",
+"身体上",
+"in a way related to the body",
+"Never hurt a dog physically.",
+"绝不要在身体上伤害狗。",
+"本课"
+],
+[
+"adv.",
+"实际上；物理上",
+"in a way that follows the laws of nature",
+"It's physically impossible to be in two places at once.",
+"同时出现在两个地方在物理上是不可能的。",
+""
+]
+],
+"txt-28": [
+[
+"n.",
+"代词",
+"a word such as he, she, it, or they used instead of a noun",
+"What does each underlined pronoun refer to?",
+"每个画线的代词指代什么？",
+"本课"
+]
+],
+"txt-29": [
+[
+"n.",
+"推断；推论",
+"a conclusion you reach from information you have",
+"Make an inference about the writer's opinion.",
+"推断作者的观点。",
+"本课"
+],
+[
+"v.",
+"infer：推断",
+"to form an opinion from information you have",
+"What can you infer from the text?",
+"你能从文章中推断出什么？",
+"常用"
+]
+],
+"txt-30": [
+[
+"adv.",
+"直接地；明确地",
+"without anything or anyone in between; clearly",
+"The writer does not say it directly.",
+"作者没有直接说出来。",
+"本课"
+],
+[
+"adv.",
+"马上；立即",
+"immediately",
+"Come home directly after school.",
+"放学后直接回家。",
+""
+]
+],
+"txt-31": [
+[
+"v.",
+"recognize：识别；认出",
+"to know someone or something because you have seen it before",
+"Practice recognizing noun clauses.",
+"练习识别名词性从句。",
+"本课"
+],
+[
+"v.",
+"recognize：承认；认可",
+"to accept that something is true or important",
+"We recognize her hard work.",
+"我们认可她的努力。",
+"常用"
+]
+],
+"txt-32": [
+[
+"n.",
+"从句",
+"a group of words with a subject and a verb that is part of a sentence",
+"A noun clause can be the object of a verb.",
+"名词性从句可以作动词的宾语。",
+"本课"
+],
+[
+"n.",
+"（合同的）条款",
+"a section of a legal document",
+"Read every clause in the contract.",
+"仔细读合同的每一项条款。",
+"常用"
+]
+],
+"txt-33": [
+[
+"adj.",
+"从属的（语法）",
+"(grammar) introducing a clause that depends on the main clause",
+"'Because' is a subordinating conjunction.",
+"because 是从属连词。",
+"本课"
+]
+],
+"txt-34": [
+[
+"n.",
+"连词",
+"a word such as and, but, or because that joins words or clauses",
+"Use a conjunction to join the two sentences.",
+"用一个连词把两个句子连起来。",
+"本课"
+],
+[
+"phrase",
+"in conjunction with：与……一起",
+"together with",
+"The study was done in conjunction with the university.",
+"这项研究是与大学合作完成的。",
+""
+]
+],
+"txt-35": [
+[
+"n.",
+"公平；公正",
+"the quality of treating people equally and reasonably",
+"Monkeys seem to care about fairness.",
+"猴子似乎在意公平。",
+"本课"
+]
+],
+"txt-36": [
+[
+"n.",
+"葡萄",
+"a small round green or purple fruit",
+"The monkey wanted a grape instead of cucumber.",
+"猴子想要葡萄而不是黄瓜。",
+"本课"
+]
+],
+"txt-37": [
+[
+"n.",
+"卷尾猴",
+"a small South American monkey",
+"One capuchin got a grape, and the other got cucumber.",
+"一只卷尾猴得到葡萄，另一只得到黄瓜。",
+"本课"
+]
+],
+"txt-38": [
+[
+"v.",
+"表明；显示",
+"to show that something is probably true",
+"This research suggests that animals feel emotions.",
+"这项研究表明动物有情感。",
+"本课"
+],
+[
+"v.",
+"建议；提议",
+"to give an idea for others to consider",
+"I suggest we leave early.",
+"我建议我们早点出发。",
+"常用"
+]
+],
+"txt-39": [
+[
+"n.",
+"化学物质",
+"a substance made by or used in chemistry",
+"Oxytocin is a chemical in the brain.",
+"催产素是大脑中的一种化学物质。",
+"本课"
+],
+[
+"adj.",
+"化学的",
+"relating to chemistry",
+"a chemical reaction",
+"化学反应",
+"常用"
+]
+],
+"txt-40": [
+[
+"n.",
+"哺乳动物",
+"animals that feed their babies with milk",
+"Dogs, whales, and humans are mammals.",
+"狗、鲸和人类都是哺乳动物。",
+"本课"
+]
+],
+"txt-41": [
+[
+"adj.",
+"相关的；牵涉其中的",
+"connected with or part of something",
+"Oxytocin is involved in feelings of love.",
+"催产素与爱的感受有关。",
+"本课"
+],
+[
+"adj.",
+"参与的",
+"taking part in an activity",
+"Many students got involved in the project.",
+"很多学生参与了这个项目。",
+"常用"
+]
+],
+"txt-42": [
+[
+"prep.",
+"对于；针对（感情）",
+"in relation to someone or something",
+"her feelings toward her babies",
+"她对孩子的感情",
+"本课"
+],
+[
+"prep.",
+"朝；向",
+"in the direction of",
+"The dog ran toward me.",
+"狗朝我跑来。",
+"常用"
+]
+],
+"txt-43": [
+[
+"n.",
+"催产素",
+"a hormone linked to love, trust, and bonding",
+"Oxytocin helps mothers bond with their babies.",
+"催产素帮助母亲和婴儿建立亲密关系。",
+"本课"
+]
+],
+"txt-44": [
+[
+"n.",
+"数量；量",
+"a quantity of something",
+"Some people produce larger amounts of oxytocin.",
+"有些人分泌的催产素更多。",
+"本课"
+],
+[
+"v.",
+"amount to：总计；等于",
+"to add up to; to be the same as",
+"The bill amounted to $50.",
+"账单总计 50 美元。",
+""
+]
+],
+"txt-45": [
+[
+"n.",
+"实验",
+"a scientific test to find out something",
+"In the experiment, the monkeys were given food.",
+"在实验中，猴子得到了食物。",
+"本课"
+],
+[
+"v.",
+"尝试；做实验",
+"to try new ideas or methods",
+"She likes to experiment with new recipes.",
+"她喜欢尝试新菜谱。",
+"常用"
+]
+],
+"txt-46": [
+[
+"v.",
+"breathe：呼吸；吸入",
+"to take air into your body and let it out",
+"The people breathed in the hormone.",
+"受试者吸入了这种激素。",
+"本课"
+]
+],
+"txt-47": [
+[
+"v.",
+"care：在意；关心",
+"to feel that something is important",
+"The monkeys cared about fairness.",
+"猴子在意公平。",
+"本课"
+],
+[
+"phr. v.",
+"care for：照顾",
+"to look after someone",
+"She cared for her sick mother.",
+"她照顾生病的母亲。",
+"常用"
+]
+],
+"txt-48": [
+[
+"n.",
+"对待；待遇",
+"the way you behave toward someone",
+"The monkeys expected fair treatment.",
+"猴子期待公平的待遇。",
+"本课"
+],
+[
+"n.",
+"治疗",
+"medical care for an illness or injury",
+"He is receiving treatment for back pain.",
+"他在接受背痛治疗。",
+"常用"
+]
+],
+"txt-49": [
+[
+"adj.",
+"意识到的；关注到的",
+"knowing or noticing that something exists",
+"People became more aware of others' feelings.",
+"人们更能察觉别人的感受。",
+"本课"
+]
+],
+"txt-50": [
+[
+"n.",
+"宠物",
+"an animal kept at home for company",
+"A dog can be a good pet.",
+"狗可以是很好的宠物。",
+"本课"
+],
+[
+"v.",
+"抚摸",
+"to touch an animal gently with your hand",
+"Can I pet your dog?",
+"我可以摸摸你的狗吗？",
+"常用"
+]
+],
+"txt-51": [
+[
+"n.",
+"训练员；驯兽师",
+"a person who teaches animals or people skills",
+"He is a famous dog trainer.",
+"他是一位著名的驯狗师。",
+"本课"
+],
+[
+"n.",
+"运动鞋（trainers，英式）",
+"(British) sports shoes",
+"Wear your trainers to the gym.",
+"去健身房穿运动鞋。",
+""
+]
+],
+"txt-52": [
+[
+"n.",
+"职业（需专门训练的）",
+"a type of job that needs special training or education",
+"Teaching is a rewarding profession.",
+"教书是一份有意义的职业。",
+"本课"
+]
+],
+"txt-53": [
+[
+"phr. v.",
+"解决；想出办法",
+"to find a solution to a problem",
+"They worked out the issues with their dog.",
+"他们解决了和狗之间的问题。",
+"本课"
+],
+[
+"phr. v.",
+"健身；锻炼",
+"to exercise to improve your fitness",
+"I work out three times a week.",
+"我每周锻炼三次。",
+"常用"
+]
+],
+"txt-54": [
+[
+"v.",
+"重视；欣赏",
+"to understand how good or important someone or something is",
+"Dogs appreciate a calm owner.",
+"狗喜欢平和的主人。",
+"本课"
+],
+[
+"v.",
+"感激",
+"to be thankful for something",
+"I really appreciate your help.",
+"非常感谢你的帮助。",
+"常用"
+]
+],
+"txt-55": [
+[
+"n.",
+"伙伴；同伴",
+"a person or animal you spend time with",
+"Dogs are good companions.",
+"狗是很好的伙伴。",
+"本课"
+]
+],
+"txt-56": [
+[
+"adj.",
+"困惑的",
+"not able to understand something clearly",
+"Many owners are confused by their dogs' behavior.",
+"很多主人对狗的行为感到困惑。",
+"本课"
+],
+[
+"v.",
+"confuse：把……弄糊涂；混淆",
+"to make someone unable to understand; to mix up",
+"I always confuse the two words.",
+"我总是把这两个词搞混。",
+"常用"
+]
+],
+"txt-57": [
+[
+"n.",
+"主人；所有者",
+"a person who owns something",
+"A good pet owner walks the dog every day.",
+"好的宠物主人每天遛狗。",
+"本课"
+]
+],
+"txt-58": [
+[
+"adj.",
+"有权势的；有影响力的",
+"having a lot of control or influence over others",
+"Some of his clients are powerful people.",
+"他的一些客户是有权势的人。",
+"本课"
+],
+[
+"adj.",
+"强大的；效果强的",
+"very strong or effective",
+"a powerful engine",
+"强劲的发动机",
+"常用"
+]
+],
+"txt-59": [
+[
+"v.",
+"继续",
+"to keep doing something without stopping",
+"The scientists continued the test.",
+"科学家们继续进行测试。",
+"本课"
+]
+],
+"txt-60": [
+[
+"v.",
+"合作；配合",
+"to work together with someone toward the same goal",
+"The monkeys cooperated with each other to get food.",
+"猴子们互相合作获取食物。",
+"本课"
+]
+],
+"txt-61": [
+[
+"v.",
+"交换；调换",
+"to give something and receive something else in return",
+"The monkey exchanged a token for food.",
+"猴子用一枚代币换了食物。",
+"本课"
+],
+[
+"n.",
+"交换；交流",
+"the act of giving and receiving things or ideas",
+"a student exchange program",
+"学生交换项目",
+"常用"
+]
+],
+"txt-62": [
+[
+"v.",
+"期待；预期",
+"to think that something will happen",
+"The monkeys expected to receive fair treatment.",
+"猴子期待得到公平对待。",
+"本课"
+],
+[
+"v.",
+"要求；指望（某人做）",
+"to think someone should do something",
+"My boss expects me to be on time.",
+"老板要求我准时。",
+"常用"
+]
+],
+"txt-63": [
+[
+"adj.",
+"公平的",
+"treating people equally and in a reasonable way",
+"It's not fair to give one monkey a grape and the other cucumber.",
+"给一只猴子葡萄、另一只黄瓜不公平。",
+"本课"
+],
+[
+"n.",
+"集市；博览会",
+"an event with rides, games, or products for sale",
+"We went to the county fair.",
+"我们去逛了县里的集市。",
+"常用"
+],
+[
+"adj.",
+"（肤色）白皙的；（发色）浅色的",
+"light in color (skin or hair)",
+"She has fair hair.",
+"她有一头浅色头发。",
+""
+]
+],
+"txt-64": [
+[
+"n.",
+"反应；回应",
+"a reaction to something",
+"The monkey's response to the unfair reward was anger.",
+"猴子对不公平奖励的反应是生气。",
+"本课"
+],
+[
+"n.",
+"回答；答复",
+"an answer to a question or letter",
+"I'm still waiting for a response to my email.",
+"我还在等邮件的回复。",
+"常用"
+]
+],
+"txt-65": [
+[
+"n.",
+"关系；联系",
+"the way two or more people, animals, or things are connected",
+"Capuchins have close relationships with each other.",
+"卷尾猴彼此关系亲密。",
+"本课"
+],
+[
+"n.",
+"恋爱关系",
+"a romantic connection between two people",
+"They have been in a relationship for two years.",
+"他们交往两年了。",
+"常用"
+]
+],
+"txt-66": [
+[
+"n.",
+"奖励；回报",
+"something given for good work or behavior",
+"The monkey got a piece of cucumber as a reward.",
+"猴子得到一块黄瓜作为奖励。",
+"本课"
+],
+[
+"v.",
+"奖励；酬谢",
+"to give something to someone for good work or behavior",
+"Reward your dog when it sits.",
+"狗坐下时要奖励它。",
+"常用"
+]
+],
+"txt-67": [
+[
+"phrase",
+"参加；参与",
+"to join in an activity",
+"The monkeys took part in activities to collect food.",
+"猴子参与了收集食物的活动。",
+"本课"
+]
+],
+"txt-68": [
+[
+"adj.",
+"愿意的；乐意的",
+"happy and ready to do something",
+"Are you willing to help?",
+"你愿意帮忙吗？",
+"本课"
+]
+],
+"txt-69": [
+[
+"n.",
+"相似之处",
+"a way in which two people or things are alike",
+"Monkeys share a lot of similarities with humans.",
+"猴子和人类有很多相似之处。",
+"本课"
+],
+[
+"adj.",
+"similar：相似的",
+"almost the same but not exactly",
+"My sister and I have similar tastes in music.",
+"我和姐姐的音乐品味很像。",
+"常用"
+]
+],
+"txt-70": [
+[
+"v.",
+"收集；采集",
+"to get things from different places and bring them together",
+"Capuchins work together to collect food.",
+"卷尾猴合作收集食物。",
+"本课"
+],
+[
+"v.",
+"收藏（作为爱好）",
+"to get and keep things of one type because you like them",
+"He collects old coins.",
+"他收藏旧硬币。",
+"常用"
+]
+],
+"txt-71": [
+[
+"n.",
+"黄瓜",
+"a long green vegetable that is usually eaten raw",
+"The monkey got a piece of cucumber as a reward.",
+"猴子得到一块黄瓜作为奖励。",
+"本课"
+]
+],
+"txt-72": [
+[
+"n.",
+"激素；荷尔蒙",
+"a chemical made in the body that controls how it grows or feels",
+"Oxytocin is sometimes called the love hormone.",
+"催产素有时被称为「爱的激素」。",
+"本课"
+]
+]
 }
