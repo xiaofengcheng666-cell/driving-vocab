@@ -11,18 +11,27 @@ def ac(action, **params):
         raise RuntimeError(f'{action}: {r["error"]}')
     return r['result']
 
+AUDIO = sys.argv[1]
 senses = {}
-for f in sys.argv[1:]:
+for f in sys.argv[2:]:
     senses.update(json.load(open(f, encoding='utf-8')))
 
-def render(items):
+stored = set(ac('getMediaFilesNames', pattern='freya_ex_*'))
+def ex_sound(key, i):
+    deck, n = key.split('-')
+    name = f'freya_ex_{deck}_{n}_{i}.mp3'
+    if name not in stored:
+        ac('storeMediaFile', filename=name, path=f'{AUDIO}/ex/{deck}_{n}_{i}.mp3'); stored.add(name)
+    return f'[sound:{name}]'
+
+def render(key, items):
     out = []
-    for pos, zh, en, ex, exzh, mark in items:
+    for i, (pos, zh, en, ex, exzh, mark) in enumerate(items, 1):
         tag = {'本课': '<span class="tag here">本课</span>', '常用': '<span class="tag common">常用</span>'}.get(mark, '')
         out.append(f'<div class="sense"><div class="head"><span class="pos">{html.escape(pos)}</span> '
                    f'<span class="szh">{html.escape(zh)}</span>{tag}</div>'
                    f'<div class="def">{html.escape(en)}</div>'
-                   f'<div class="ex">{html.escape(ex)}</div><div class="exzh">{html.escape(exzh)}</div></div>')
+                   f'<div class="ex">{html.escape(ex)} {ex_sound(key, i)}</div><div class="exzh">{html.escape(exzh)}</div></div>')
     return ''.join(out)
 
 if 'Senses' not in ac('modelFieldNames', modelName=MODEL):
@@ -31,13 +40,11 @@ if 'Senses' not in ac('modelFieldNames', modelName=MODEL):
 SENSES_BLOCK = '<div class="senses">{{Senses}}</div>'
 ac('updateModelTemplates', model={'name': MODEL, 'templates': {
     '读音': {'Front': '<div class="zh">{{Chinese}}</div><div class="hint">先大声说出英文，再翻面</div>',
-             'Back': '{{FrontSide}}<hr id="answer"><div class="word">{{Word}}</div><div class="ipa">{{IPA}}</div>{{WordAudio}}'
-                     '<div class="ph">{{Phrase}}</div><div class="phzh">{{PhraseZh}}</div>{{PhraseAudio}}'
-                     '<div class="hint">慢速：单词 {{WordSlow}} · 短语 {{PhraseSlow}}</div>' + SENSES_BLOCK + '<div class="src">{{Source}}</div>'},
-    '拼写': {'Front': '<div class="hint">听读音，拼出英文</div>{{WordAudio}}<div class="zh">{{Chinese}}</div>'
-                     '<div class="hint">慢速 {{WordSlow}}</div>{{type:Word}}',
-             'Back': '<div class="zh">{{Chinese}}</div>{{type:Word}}<div class="word">{{Word}}</div><div class="ipa">{{IPA}}</div>{{WordAudio}}'
-                     '<div class="ph">{{Phrase}}</div><div class="phzh">{{PhraseZh}}</div>' + SENSES_BLOCK + '<div class="src">{{Source}}</div>'}}})
+             'Back': '{{FrontSide}}<hr id="answer"><div class="word">{{Word}} {{WordAudio}}</div><div class="ipa">{{IPA}}</div>'
+                     + SENSES_BLOCK + '<div class="src">{{Source}}</div>'},
+    '拼写': {'Front': '<div class="hint">听读音，拼出英文</div>{{WordAudio}}<div class="zh">{{Chinese}}</div>{{type:Word}}',
+             'Back': '<div class="zh">{{Chinese}}</div>{{type:Word}}<div class="word">{{Word}} {{WordAudio}}</div><div class="ipa">{{IPA}}</div>'
+                     + SENSES_BLOCK + '<div class="src">{{Source}}</div>'}}})
 
 css = ac('modelStyling', modelName=MODEL)['css']
 if '.senses' not in css:
@@ -62,7 +69,7 @@ for info in infos:
     key = info['fields']['Key']['value']
     if key not in senses:
         missing.append(key); continue
-    actions.append({'action': 'updateNoteFields', 'params': {'note': {'id': info['noteId'], 'fields': {'Senses': render(senses[key])}}}})
+    actions.append({'action': 'updateNoteFields', 'params': {'note': {'id': info['noteId'], 'fields': {'Senses': render(key, senses[key])}}}})
 res = ac('multi', actions=actions)
 errors = [r for r in res if isinstance(r, dict) and r.get('error')]
 print('notes', len(infos), 'updated', len(actions), 'errors', len(errors), 'missing', missing)
