@@ -1,7 +1,7 @@
 """Road-test examiner commands as listening cards: hear the command -> know what to do."""
 import sys, json, urllib.request
 src, audio = sys.argv[1], sys.argv[2]
-MODEL, DECK = 'Freya路考指令', '读音-驾校单词'
+MODEL, DECK = 'Freya路考指令', '听力-路考指令'
 def ac(a, **p):
     r = json.load(urllib.request.urlopen(urllib.request.Request('http://127.0.0.1:8765', json.dumps({'action': a, 'version': 6, 'params': p}).encode()), timeout=120))
     if r.get('error'): raise RuntimeError(a + ': ' + r['error'])
