@@ -46,13 +46,13 @@ if MODEL not in ac('modelNames'):
 decks = []
 drv = json.load(open(driving_json, encoding='utf-8'))
 for n, r in enumerate(drv, 1):
-    decks.append(('drv', n, r[:5], f'{ROOT}::1 驾校词汇', '加州驾照', ['驾照']))
+    decks.append(('drv', n, r[:5], '驾校词汇', '加州驾照', ['驾照']))
 txt = json.load(open(textbook_json, encoding='utf-8'))['data']
 for n, r in enumerate(txt, 1):
     if n <= 49:
-        decks.append(('txt', n, r[:5], f'{ROOT}::2 教材生词', f'教材 Animal Behavior · 我圈的生词 · p{r[5]}', ['教材', '圈词']))
+        decks.append(('txt', n, r[:5], '教材生词', f'教材 Animal Behavior · 我圈的生词 · p{r[5]}', ['教材', '圈词']))
     else:
-        decks.append(('txt', n, r[:5], f'{ROOT}::2 教材生词', f'教材 Animal Behavior · 蓝色印刷新词 · p{r[5]}', ['教材', '蓝色新词']))
+        decks.append(('txt', n, r[:5], '教材生词', f'教材 Animal Behavior · 蓝色印刷新词 · p{r[5]}', ['教材', '蓝色新词']))
 
 for d in sorted({x[3] for x in decks}):
     ac('createDeck', deck=d)
