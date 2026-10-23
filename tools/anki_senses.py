@@ -24,10 +24,19 @@ def ex_sound(key, i):
     name = f'_freya_ex_{deck}_{n}_{i}.mp3'
     if name not in stored:
         ac('storeMediaFile', filename=name, path=f'{AUDIO}/ex/{deck}_{n}_{i}.mp3'); stored.add(name)
-    if i == 1:  # first example autoplays right after the word (reading decks have autoplay on)
-        return f'[sound:{name}]'
-    return (f'<a class="explay" href="#" onclick="if(window._fx)window._fx.pause();window._fx=new Audio(\'{name}\');'
-            f'window._fx.play();return false;"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="29"/><path d="M26 20l18 12-18 12z"/></svg></a>')
+    return name
+
+PLAY_ICON = '<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="29"/><path d="M26 20l18 12-18 12z"/></svg>'
+
+def example(key, i, ex, exzh):
+    """The whole example block (sentence + translation) is one tap target, like Momo.
+    Example 1 keeps a [sound:] tag so it autoplays after the word; tapping its own button is left to Anki."""
+    name = ex_sound(key, i)
+    play = ("if(event.target.closest('.replay-button'))return;"
+            f"if(window._fx)window._fx.pause();window._fx=new Audio('{name}');window._fx.play();")
+    btn = f'[sound:{name}]' if i == 1 else f'<span class="explay">{PLAY_ICON}</span>'
+    return (f'<div class="exrow" onclick="{play}"><div class="ex"><span class="extext">{html.escape(ex)}</span>{btn}</div>'
+            f'<div class="exzh">{html.escape(exzh)}</div></div>')
 
 def render(key, items):
     out = []
@@ -36,7 +45,7 @@ def render(key, items):
         out.append(f'<div class="sense"><div class="head"><span class="pos">{html.escape(pos)}</span> '
                    f'<span class="szh">{html.escape(zh)}</span>{tag}</div>'
                    f'<div class="def">{html.escape(en)}</div>'
-                   f'<div class="ex">{html.escape(ex)} {ex_sound(key, i)}</div><div class="exzh">{html.escape(exzh)}</div></div>')
+                   + example(key, i, ex, exzh) + '</div>')
     return ''.join(out)
 
 if 'Senses' not in ac('modelFieldNames', modelName=MODEL):
