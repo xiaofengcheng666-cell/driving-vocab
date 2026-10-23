@@ -38,13 +38,26 @@ def example(key, i, ex, exzh):
     return (f'<div class="exrow" onclick="{play}"><div class="ex"><span class="extext">{html.escape(ex)}</span>{btn}</div>'
             f'<div class="exzh">{html.escape(exzh)}</div></div>')
 
+
+def_stored = set(ac('getMediaFilesNames', pattern='_freya_def_*'))
+
+def definition(key, i, en):
+    """English definition as a tappable bar (light blue) with its own Ava audio; never autoplays."""
+    deck, n = key.split('-')
+    name = f'_freya_def_{deck}_{n}_{i}.mp3'
+    if name not in def_stored:
+        ac('storeMediaFile', filename=name, path=f'{AUDIO}/def/{deck}_{n}_{i}.mp3'); def_stored.add(name)
+    play = f"if(window._fx)window._fx.pause();window._fx=new Audio('{name}');window._fx.play();"
+    return (f'<div class="defrow" onclick="{play}"><div class="def"><span class="deftext">{html.escape(en)}</span>'
+            f'<span class="explay">{PLAY_ICON}</span></div></div>')
+
 def render(key, items):
     out = []
     for i, (pos, zh, en, ex, exzh, mark) in enumerate(items, 1):
         tag = {'本课': '<span class="tag here">本课</span>', '常用': '<span class="tag common">常用</span>'}.get(mark, '')
         out.append(f'<div class="sense"><div class="head"><span class="pos">{html.escape(pos)}</span> '
                    f'<span class="szh">{html.escape(zh)}</span>{tag}</div>'
-                   f'<div class="def">{html.escape(en)}</div>'
+                   + definition(key, i, en)
                    + example(key, i, ex, exzh) + '</div>')
     return ''.join(out)
 
