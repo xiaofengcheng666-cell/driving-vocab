@@ -16,13 +16,16 @@ senses = {}
 for f in sys.argv[2:]:
     senses.update(json.load(open(f, encoding='utf-8')))
 
-stored = set(ac('getMediaFilesNames', pattern='freya_ex_*'))
+# Example audio is played by a small script button, not a [sound:] tag, so it never autoplays with the word.
+# Leading "_" keeps Anki's Check Media from treating these files as unused.
+stored = set(ac('getMediaFilesNames', pattern='_freya_ex_*'))
 def ex_sound(key, i):
     deck, n = key.split('-')
-    name = f'freya_ex_{deck}_{n}_{i}.mp3'
+    name = f'_freya_ex_{deck}_{n}_{i}.mp3'
     if name not in stored:
         ac('storeMediaFile', filename=name, path=f'{AUDIO}/ex/{deck}_{n}_{i}.mp3'); stored.add(name)
-    return f'[sound:{name}]'
+    return (f'<a class="explay" href="#" onclick="if(window._fx)window._fx.pause();window._fx=new Audio(\'{name}\');'
+            f'window._fx.play();return false;"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="29"/><path d="M26 20l18 12-18 12z"/></svg></a>')
 
 def render(key, items):
     out = []
@@ -61,6 +64,15 @@ if '.senses' not in css:
 .exzh{font-size:15px;color:#5d6b64}
 .nightMode .def{color:#c9d3ce}.nightMode .pos,.nightMode .tag.here{color:#5bb47e}.nightMode .senses,.nightMode .sense{border-color:#2c3732}"""
     ac('updateModelStyling', model={'name': MODEL, 'css': css})
+
+css2 = ac('modelStyling', modelName=MODEL)['css']
+if '.explay' not in css2:
+    ac('updateModelStyling', model={'name': MODEL, 'css': css2 + '''
+/* example play buttons (script, not autoplay) */
+.explay{display:inline-block;vertical-align:-5px;margin-left:3em;text-decoration:none}
+.explay svg{width:26px;height:26px}
+.explay circle{fill:#1d6a48}.explay path{fill:#fff}
+.nightMode .explay circle{fill:#5bb47e}'''})
 
 ids = ac('findNotes', query=f'note:{MODEL}')
 infos = ac('notesInfo', notes=ids)
