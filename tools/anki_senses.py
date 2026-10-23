@@ -24,6 +24,8 @@ def ex_sound(key, i):
     name = f'_freya_ex_{deck}_{n}_{i}.mp3'
     if name not in stored:
         ac('storeMediaFile', filename=name, path=f'{AUDIO}/ex/{deck}_{n}_{i}.mp3'); stored.add(name)
+    if i == 1:  # first example autoplays right after the word (reading decks have autoplay on)
+        return f'[sound:{name}]'
     return (f'<a class="explay" href="#" onclick="if(window._fx)window._fx.pause();window._fx=new Audio(\'{name}\');'
             f'window._fx.play();return false;"><svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="29"/><path d="M26 20l18 12-18 12z"/></svg></a>')
 
