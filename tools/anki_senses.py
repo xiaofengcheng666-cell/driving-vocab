@@ -69,8 +69,8 @@ css2 = ac('modelStyling', modelName=MODEL)['css']
 if '.explay' not in css2:
     ac('updateModelStyling', model={'name': MODEL, 'css': css2 + '''
 /* example play buttons (script, not autoplay) */
-.explay{display:inline-block;vertical-align:-5px;margin-left:3em;text-decoration:none}
-.explay svg{width:26px;height:26px}
+.explay{display:inline-block;vertical-align:-8px;margin-left:3em;text-decoration:none}
+.explay svg{width:32px;height:32px}
 .explay circle{fill:#1d6a48}.explay path{fill:#fff}
 .nightMode .explay circle{fill:#5bb47e}'''})
 
